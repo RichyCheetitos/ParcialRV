@@ -16,7 +16,7 @@ namespace SimEdVR.Scripts.Actividades
     {
         [Header("Identificador de Punto en GameManager")]
         [Tooltip("ID del punto que representa esta actividad en GameManager y PuntoInformacion (ej: 'Punto B').")]
-        public string idPunto = "Punto B";
+        public string idPunto = "Punto F";
 
         [Header("Canvas World Space de la Actividad")]
         [SerializeField] private Canvas canvasActividad;

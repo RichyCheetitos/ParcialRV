@@ -60,28 +60,34 @@ namespace SimEdVR.Scripts.UI
             string hexCompletado = ColorUtility.ToHtmlStringRGB(colorCompletado);
             string hexPendiente = ColorUtility.ToHtmlStringRGB(colorPendiente);
 
-            
+            bool compA = !string.IsNullOrEmpty(idPuntoA) && SimEd_GameManager.Instance.EsPuntoCompletado(idPuntoA);
+            bool compB = !string.IsNullOrEmpty(idPuntoB) && SimEd_GameManager.Instance.EsPuntoCompletado(idPuntoB);
+            bool compC = !string.IsNullOrEmpty(idPuntoC) && SimEd_GameManager.Instance.EsPuntoCompletado(idPuntoC);
+
             if (txtEstadoPuntoA != null)
             {
-                bool compA = SimEd_GameManager.Instance.EsPuntoCompletado(idPuntoA);
                 txtEstadoPuntoA.text = $"{idPuntoA}: {(compA ? $"<color=#{hexCompletado}>Completado</color>" : $"<color=#{hexPendiente}>Pendiente</color>")}";
             }
 
             if (txtEstadoPuntoB != null)
             {
-                bool compB = SimEd_GameManager.Instance.EsPuntoCompletado(idPuntoB);
                 txtEstadoPuntoB.text = $"{idPuntoB}: {(compB ? $"<color=#{hexCompletado}>Completado</color>" : $"<color=#{hexPendiente}>Pendiente</color>")}";
             }
 
             if (txtEstadoPuntoC != null)
             {
-                bool compC = SimEd_GameManager.Instance.EsPuntoCompletado(idPuntoC);
                 txtEstadoPuntoC.text = $"{idPuntoC}: {(compC ? $"<color=#{hexCompletado}>Completado</color>" : $"<color=#{hexPendiente}>Pendiente</color>")}";
             }
 
             if (txtEstadoSalaGlobal != null)
             {
-                if (SimEd_GameManager.Instance.salaCompletada)
+                bool tienePuntos = !string.IsNullOrEmpty(idPuntoA) || !string.IsNullOrEmpty(idPuntoB) || !string.IsNullOrEmpty(idPuntoC);
+                bool estaSalaCompletada = tienePuntos &&
+                    (string.IsNullOrEmpty(idPuntoA) || compA) &&
+                    (string.IsNullOrEmpty(idPuntoB) || compB) &&
+                    (string.IsNullOrEmpty(idPuntoC) || compC);
+
+                if (estaSalaCompletada)
                 {
                     txtEstadoSalaGlobal.text = $"<color=#{hexCompletado}><b>{mensajeSalaCompletada}</b></color>";
                 }

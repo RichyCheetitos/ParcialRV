@@ -18,7 +18,7 @@ namespace SimEdVR.Scripts.Actividades
     {
         [Header("Identificador de Punto")]
         [Tooltip("ID para registrar el progreso en el GameManager / PuntoInformacion.")]
-        public string idPunto = "Punto C";
+        public string idPunto = "Punto I";
 
         [Header("Canvas World Space de la Actividad")]
         [SerializeField] private Canvas canvasActividad;
@@ -43,7 +43,8 @@ namespace SimEdVR.Scripts.Actividades
 
         private bool _estaCompletada = false;
         private bool _actividadIniciada = false;
-        private Coroutine _coroutineResetCubo;
+        private bool _reiniciandoPorError = false;
+        private Coroutine _coroutineResetMesa;
 
         public override bool EstaCompletada => _estaCompletada;
 
@@ -172,6 +173,12 @@ namespace SimEdVR.Scripts.Actividades
 
         public override void ReiniciarActividad()
         {
+            if (_coroutineResetMesa != null)
+            {
+                StopCoroutine(_coroutineResetMesa);
+                _coroutineResetMesa = null;
+            }
+            _reiniciandoPorError = false;
             _estaCompletada = false;
             _actividadIniciada = false;
 
@@ -201,7 +208,7 @@ namespace SimEdVR.Scripts.Actividades
         /// </summary>
         public void EvaluarCuboEnRanura(CuboElementoQuimico cubo, RanuraElementoQuimico ranura)
         {
-            if (!_actividadIniciada || _estaCompletada || cubo == null || ranura == null) return;
+            if (!_actividadIniciada || _estaCompletada || _reiniciandoPorError || cubo == null || ranura == null) return;
 
             // Comparar ignorando mayúsculas/minúsculas
             bool coincide = string.Equals(cubo.simboloElemento.Trim(), ranura.simboloEsperado.Trim(), StringComparison.OrdinalIgnoreCase);
@@ -253,7 +260,7 @@ namespace SimEdVR.Scripts.Actividades
 
                 if (txtFeedback != null)
                 {
-                    txtFeedback.text = $"<color=#E74C3C><b>Elemento incorrecto:</b> {cubo.nombreElemento} ({cubo.simboloElemento}) no va en esta casilla.\nSe requiere: <b>{ranura.simboloEsperado}</b>.</color>";
+                    txtFeedback.text = $"<color=#E74C3C><b>Elemento incorrecto:</b> {cubo.nombreElemento} ({cubo.simboloElemento}) no va en esta casilla.\nSe requiere: <b>{ranura.simboloEsperado}</b>.\n<i>Reiniciando la mesa en 2 segundos...</i></color>";
                 }
 
                 // Audio error
@@ -262,9 +269,9 @@ namespace SimEdVR.Scripts.Actividades
                     SimEd_GameManager.Instance.NotificarPreguntaRespondida(false);
                 }
 
-                // Regresar el cubo distractor a su posición original
-                if (_coroutineResetCubo != null) StopCoroutine(_coroutineResetCubo);
-                _coroutineResetCubo = StartCoroutine(RutinaReiniciarCuboErroneo(cubo));
+                // Reiniciar toda la mesa tras 2 segundos para permitir reintentar limpiamente
+                if (_coroutineResetMesa != null) StopCoroutine(_coroutineResetMesa);
+                _coroutineResetMesa = StartCoroutine(RutinaReiniciarMesaTrasError(2.0f));
             }
         }
 
@@ -279,13 +286,37 @@ namespace SimEdVR.Scripts.Actividades
             return contador;
         }
 
-        private IEnumerator RutinaReiniciarCuboErroneo(CuboElementoQuimico cubo)
+        private IEnumerator RutinaReiniciarMesaTrasError(float retraso)
         {
-            yield return new WaitForSeconds(1.2f);
-            if (!_estaCompletada && cubo != null && !cubo.BloqueadoEnRanura)
+            _reiniciandoPorError = true;
+            yield return new WaitForSeconds(retraso);
+
+            if (!_estaCompletada)
             {
-                cubo.ReiniciarPosicion();
+                if (ranuras != null)
+                {
+                    foreach (var r in ranuras)
+                    {
+                        if (r != null) r.LiberarRanura();
+                    }
+                }
+
+                if (cubosDisponibles != null)
+                {
+                    foreach (var c in cubosDisponibles)
+                    {
+                        if (c != null) c.ReiniciarPosicion();
+                    }
+                }
+
+                if (txtFeedback != null)
+                {
+                    txtFeedback.text = "<color=#F39C12><b>Mesa reiniciada.</b> Vuelve a intentar colocando los elementos correctos (H - H - O).</color>";
+                }
             }
+
+            _reiniciandoPorError = false;
+            _coroutineResetMesa = null;
         }
     }
 }

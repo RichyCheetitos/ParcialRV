@@ -2,29 +2,29 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections;
-using System.Collections.Generic;
 using SimEdVR.Scripts.Core;
 using SimEdVR.Scripts.Managers;
 
 namespace SimEdVR.Scripts.VR
 {
     /// <summary>
-    /// Controlador del Punto de Aprendizaje / Sala Temática en SimEdVR.
-    /// Mantiene compatibilidad total con la configuración y prefabs existentes,
-    /// añadiendo el ciclo de 2 preguntas, integración con BaseActividadInteractiva,
-    /// y aislamiento cognitivo sin desactivar el GameObject raíz.
+    /// Controlador de un Punto de Aprendizaje dentro de la sala temática.
+    /// Cada punto de aprendizaje contiene exactamente 2 preguntas teóricas evaluativas.
+    /// Al responder correctamente ambas preguntas, este punto se marca como completado
+    /// en el SimEd_GameManager y en el tablero de pared (SimEd_PuntoInformacion).
     /// </summary>
     public class SimEd_PuntoAprendizaje : MonoBehaviour
     {
-        [Header("Datos ScriptableObject")]
+        [Header("Datos ScriptableObject del Punto")]
+        [Tooltip("ScriptableObject que contiene la información del tema y sus 2 preguntas.")]
         public SimEd_PreguntaSO datosPunto;
 
         [Header("Contenedor Visual para Aislamiento (Opcional)")]
-        [Tooltip("Si se asigna, este contenedor se oculta durante el aislamiento. Si no, se ocultan panelInicial y panelPregunta sin apagar el GameObject raíz.")]
+        [Tooltip("Objeto que se oculta durante el aislamiento cognitivo sin desactivar el GameObject raíz.")]
         public GameObject contenedorVisual;
 
-        [Header("Actividad Práctica Asociada (Opcional / Modular)")]
-        [Tooltip("Componente derivado de BaseActividadInteractiva (ej: ActividadPlaceholder) para la fase práctica 3D.")]
+        [Header("Actividad Práctica Asociada (Opcional)")]
+        [Tooltip("Si este punto desbloquea una actividad 3D, se puede enlazar aquí.")]
         public BaseActividadInteractiva actividadInteractiva;
 
         [Header("Contenedores Principales UI")]
@@ -57,7 +57,6 @@ namespace SimEdVR.Scripts.VR
 
         private void OnEnable()
         {
-            // Suscripciones estrictas al Observer
             SimEd_GameManager.OnPuntoIniciado += ListenerOtroPuntoIniciado;
             SimEd_GameManager.OnPuntoCompletado += ListenerOtroPuntoCompletado;
 
@@ -69,7 +68,6 @@ namespace SimEdVR.Scripts.VR
 
         private void OnDisable()
         {
-            // Desuscripciones estrictas
             SimEd_GameManager.OnPuntoIniciado -= ListenerOtroPuntoIniciado;
             SimEd_GameManager.OnPuntoCompletado -= ListenerOtroPuntoCompletado;
 
@@ -206,7 +204,7 @@ namespace SimEdVR.Scripts.VR
         {
             yield return new WaitForSeconds(1.2f);
 
-            // Ciclo de exactamente 2 preguntas teóricas
+            // Si aún queda la segunda pregunta, avanzar
             if (indicePreguntaActual + 1 < datosPunto.preguntas.Count && indicePreguntaActual + 1 < 2)
             {
                 indicePreguntaActual++;
@@ -214,64 +212,63 @@ namespace SimEdVR.Scripts.VR
             }
             else
             {
-                // Fase teórica concluida -> Desbloquear actividad práctica
-                DesbloquearFaseActividad();
+                // Ambas preguntas superadas -> ¡ESTE PUNTO DE APRENDIZAJE QUEDA COMPLETADO!
+                FinalizarPuntoDeAprendizaje();
             }
         }
 
-        private void DesbloquearFaseActividad()
+        /// <summary>
+        /// Marca este Punto de Aprendizaje como completado en el GameManager y actualiza la pared.
+        /// </summary>
+        private void FinalizarPuntoDeAprendizaje()
         {
-            if (panelPregunta != null) panelPregunta.SetActive(false);
+            completado = true;
 
-            if (panelTransicionActividad != null)
-            {
-                panelTransicionActividad.SetActive(true);
-            }
-
+            // 1. Notificar inmediatamente al GameManager para actualizar este punto en la pared (Punto A, Punto B, etc.)
             if (SimEd_GameManager.Instance != null && datosPunto != null)
             {
-                SimEd_GameManager.Instance.NotificarActividadIniciada(datosPunto.idPunto);
+                Debug.Log($"[SimEd_PuntoAprendizaje] ¡Punto '{datosPunto.idPunto}' completado con éxito!");
+                SimEd_GameManager.Instance.RegistrarPuntoCompletado(datosPunto.idPunto);
             }
 
-            if (actividadInteractiva != null)
+            // 2. Mostrar feedback visual de completado en este atril
+            HabilitarBotonesRespuesta(false);
+
+            if (panelCompletado != null)
             {
-                actividadInteractiva.IniciarActividad();
+                if (panelPregunta != null) panelPregunta.SetActive(false);
+                panelCompletado.SetActive(true);
             }
             else
             {
-                // Si no hay actividad conectada aún, habilitamos el botón Continuar como fallback
+                if (txtFeedback != null)
+                {
+                    txtFeedback.text = "<color=#2ECC71><b>¡Punto completado con éxito! Has superado las 2 preguntas.</b></color>";
+                }
                 if (btnContinuar != null)
                 {
                     btnContinuar.gameObject.SetActive(true);
                 }
             }
+
+            // 3. Si tiene una actividad práctica 3D asociada directamente, la inicia
+            if (actividadInteractiva != null)
+            {
+                actividadInteractiva.IniciarActividad();
+            }
         }
 
         private void ManejarActividadSuperada()
         {
-            completado = true;
-
-            if (panelTransicionActividad != null) panelTransicionActividad.SetActive(false);
-            if (panelPregunta != null) panelPregunta.SetActive(false);
-
             if (panelCompletado != null)
             {
                 panelCompletado.SetActive(true);
-            }
-            else if (txtFeedback != null)
-            {
-                txtFeedback.text = "<color=#2ECC71><b>¡Sala completada con éxito!</b></color>";
-            }
-
-            if (SimEd_GameManager.Instance != null && datosPunto != null)
-            {
-                SimEd_GameManager.Instance.RegistrarPuntoCompletado(datosPunto.idPunto);
             }
         }
 
         public void OnClickContinuar()
         {
-            ManejarActividadSuperada();
+            MostrarEstadoInicial();
         }
 
         private void HabilitarBotonesRespuesta(bool habilitar)
@@ -290,7 +287,6 @@ namespace SimEdVR.Scripts.VR
             }
             else
             {
-                // Fallback: Si no hay contenedor explícito, togglear paneles directamente
                 if (panelInicial != null) panelInicial.SetActive(visible && !completado);
                 if (panelPregunta != null) panelPregunta.SetActive(visible && !completado);
             }
@@ -300,7 +296,6 @@ namespace SimEdVR.Scripts.VR
         {
             if (datosPunto != null && datosPunto.idPunto != idIniciado)
             {
-                // Ocultar elementos visuales sin apagar el GameObject raíz
                 SetVisibilidadVisual(false);
             }
         }

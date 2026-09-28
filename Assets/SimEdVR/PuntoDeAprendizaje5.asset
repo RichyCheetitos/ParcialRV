@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cd9f9261919d2f48ba673852bf0b8b3, type: 3}
   m_Name: PuntoDeAprendizaje5
   m_EditorClassIdentifier: Assembly-CSharp::SimEdVR.Scripts.Core.SimEd_PreguntaSO
-  idPunto: E
+  idPunto: Punto G
   tema: Hitos y Civilizaciones del Mundo Antiguo
   descripcion: "Esta sala sintetiza momentos determinantes en la evoluci\xF3n de
     las sociedades humanas"
