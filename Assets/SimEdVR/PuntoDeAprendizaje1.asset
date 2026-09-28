@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cd9f9261919d2f48ba673852bf0b8b3, type: 3}
+  m_Name: PuntoDeAprendizaje1
+  m_EditorClassIdentifier: Assembly-CSharp::SimEdVR.Scripts.Core.SimEd_PreguntaSO
+  idPunto: Punto A
+  tema: Sumas y restas
+  descripcion: En este punto se practicaran sumas y restas basicas
+  imagen: {fileID: 2105605921, guid: c1249cd82fd9f0042a1f6a05aa57f296, type: 3}
+  preguntas:
+  - textoTeorico: "Sumar significa juntar o agregar cantidades para saber cu\xE1nto
+      hay en total."
+    enunciadoPregunta: 'Cuanto es 2 + 2? '
+    respuesta1: 5
+    respuesta2: 4
+    respuesta3: 2
+    indiceRespuestaCorrecta: 1
+  - textoTeorico: "Restar significa quitar una cantidad a otra para saber cu\xE1nto
+      queda."
+    enunciadoPregunta: Cuanto es 5 - 2?
+    respuesta1: 1
+    respuesta2: 4
+    respuesta3: 3
+    indiceRespuestaCorrecta: 2

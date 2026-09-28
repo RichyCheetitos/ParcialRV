@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cd9f9261919d2f48ba673852bf0b8b3, type: 3}
+  m_Name: PuntoDeAprendizaje4
+  m_EditorClassIdentifier: Assembly-CSharp::SimEdVR.Scripts.Core.SimEd_PreguntaSO
+  idPunto: Punto C
+  tema: Quimica 1
+  descripcion: qsdfadawd
+  imagen: {fileID: 0}
+  preguntas:
+  - textoTeorico: pregunta quimica 2
+    enunciadoPregunta: respiesta
+    respuesta1: 1
+    respuesta2: 1
+    respuesta3: 1
+    indiceRespuestaCorrecta: 2
+  - textoTeorico: pregunta quimca 2
+    enunciadoPregunta: respuesta
+    respuesta1: 2
+    respuesta2: 2
+    respuesta3: 2
+    indiceRespuestaCorrecta: 0
