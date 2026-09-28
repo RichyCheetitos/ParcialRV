@@ -13,19 +13,29 @@ MonoBehaviour:
   m_Name: PuntoDeAprendizaje3
   m_EditorClassIdentifier: Assembly-CSharp::SimEdVR.Scripts.Core.SimEd_PreguntaSO
   idPunto: Punto C
-  tema: Quimica 1
-  descripcion: qsdfadawd
+  tema: Fundamentos de la Materia y Compuestos Esenciales
+  descripcion: "Esta sala aborda las bases de la qu\xEDmica general y la estructura
+    material del entorno"
   imagen: {fileID: 0}
   preguntas:
-  - textoTeorico: pregunta quimica 1
-    enunciadoPregunta: respiesta
-    respuesta1: 1
-    respuesta2: 1
-    respuesta3: 1
-    indiceRespuestaCorrecta: 2
-  - textoTeorico: pregunta quimca 2
-    enunciadoPregunta: respuesta
-    respuesta1: 2
-    respuesta2: 2
-    respuesta3: 2
+  - textoTeorico: "En la tabla peri\xF3dica, varios elementos qu\xEDmicos conservan
+      s\xEDmbolos derivados de sus nombres originales en lat\xEDn. Uno de los metales
+      preciosos m\xE1s codiciados desde la antig\xFCedad proviene del vocablo latino
+      aurum que significa \"brillo del amanecer\""
+    enunciadoPregunta: "\xBFqu\xE9 metal precioso recibe el s\xEDmbolo Au por su
+      origen en el t\xE9rmino latino aurum?"
+    respuesta1: Oro
+    respuesta2: Urano
+    respuesta3: Plata
     indiceRespuestaCorrecta: 0
+  - textoTeorico: "Los enlaces i\xF3nicos ocurren cuando los \xE1tomos transfieren
+      electrones entre s\xED. Un ejemplo cotidiano es la uni\xF3n entre un \xE1tomo
+      de sodio (Na) y uno de cloro (Cl), dando como resultado el cloruro de sodio
+      (NaCl). Un compuesto mineral blanco y cristalino se disuelve f\xE1cilmente
+      en agua y ha sido utilizado por la humanidad durante miles de a\xF1os"
+    enunciadoPregunta: "\xBFCu\xE1l es el nombre com\xFAn de uso diario que recibe
+      este compuesto de cloruro de sodio (NaCl)?"
+    respuesta1: Bicarbonato
+    respuesta2: Alumbre
+    respuesta3: Sal
+    indiceRespuestaCorrecta: 2

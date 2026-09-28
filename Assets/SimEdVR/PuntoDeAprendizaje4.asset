@@ -13,19 +13,27 @@ MonoBehaviour:
   m_Name: PuntoDeAprendizaje4
   m_EditorClassIdentifier: Assembly-CSharp::SimEdVR.Scripts.Core.SimEd_PreguntaSO
   idPunto: Punto C
-  tema: Quimica 1
-  descripcion: qsdfadawd
+  tema: Fundamentos de la Materia y Compuestos Esenciales
+  descripcion: "Esta sala aborda las bases de la qu\xEDmica general y la estructura
+    material del entorno"
   imagen: {fileID: 0}
   preguntas:
-  - textoTeorico: pregunta quimica 2
-    enunciadoPregunta: respiesta
-    respuesta1: 1
-    respuesta2: 1
-    respuesta3: 1
-    indiceRespuestaCorrecta: 2
-  - textoTeorico: pregunta quimca 2
-    enunciadoPregunta: respuesta
-    respuesta1: 2
-    respuesta2: 2
-    respuesta3: 2
+  - textoTeorico: "Cuando las part\xEDculas adquieren mucha energ\xEDa t\xE9rmica,
+      rompen casi por completo sus fuerzas de atracci\xF3n y se dispersan a gran
+      velocidad, ocupando todo el recipiente disponible sin una forma ni un volumen
+      definido."
+    enunciadoPregunta: "\xBFC\xF3mo se llama el estado de la materia cuyas part\xEDculas
+      se mueven libremente sin forma ni volumen fijo?"
+    respuesta1: Gas
+    respuesta2: Liquido
+    respuesta3: Solido
     indiceRespuestaCorrecta: 0
+  - textoTeorico: "Toda la materia existente est\xE1 compuesta por part\xEDculas
+      b\xE1sicas e indivisibles por m\xE9todos qu\xEDmicos llamadas \xE1tomos. Cuando
+      dos o m\xE1s \xE1tomos iguales o diferentes se enlazan firmemente entre s\xED,
+      dan origen a una estructura m\xE1s compleja denominada mol\xE9cula."
+    enunciadoPregunta: respuesta
+    respuesta1: "C\xE9lula"
+    respuesta2: "Mol\xE9cula"
+    respuesta3: Gota
+    indiceRespuestaCorrecta: 1

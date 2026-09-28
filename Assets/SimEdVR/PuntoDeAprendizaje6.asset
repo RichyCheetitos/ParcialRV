@@ -13,13 +13,28 @@ MonoBehaviour:
   m_Name: PuntoDeAprendizaje6
   m_EditorClassIdentifier: Assembly-CSharp::SimEdVR.Scripts.Core.SimEd_PreguntaSO
   idPunto: E
-  tema: Preguntas historia 2
-  descripcion: awdasda
+  tema: Hitos y Civilizaciones del Mundo Antiguo
+  descripcion: "Esta sala sintetiza momentos determinantes en la evoluci\xF3n de
+    las sociedades humanas"
   imagen: {fileID: 0}
   preguntas:
-  - textoTeorico: sada
-    enunciadoPregunta: asd
-    respuesta1: ads
-    respuesta2: asd
-    respuesta3: sda
+  - textoTeorico: "Los primeros grupos humanos viv\xEDan en cavernas y sufr\xEDan
+      el fr\xEDo y la oscuridad. Su vida cambi\xF3 radicalmente cuando aprendieron
+      a producir y controlar las llamas, permiti\xE9ndoles calentarse en el invierno,
+      ahuyentar fieras y cocinar su comida gracias al fuego."
+    enunciadoPregunta: "\xBFQu\xE9 elemento aprendieron a controlar los primeros
+      humanos prehist\xF3ricos para calentarse y cocinar la comida?"
+    respuesta1: Fuego
+    respuesta2: Metal
+    respuesta3: Agua
+    indiceRespuestaCorrecta: 0
+  - textoTeorico: "En la pen\xEDnsula it\xE1lica surgi\xF3 una civilizaci\xF3n militar
+      y pol\xEDtica que construy\xF3 calzadas de piedra, acueductos y el c\xE9lebre
+      Coliseo. Su ej\xE9rcito conquist\xF3 casi todas las costas del mar Mediterr\xE1neo,
+      expandiendo su idioma latino y sus leyes bajo el mando de los romanos."
+    enunciadoPregunta: "\xBFQu\xE9 pueblo conquist\xF3 el Mediterr\xE1neo y construy\xF3
+      acueductos y el Coliseo desde la actual Italia?"
+    respuesta1: Romanos
+    respuesta2: Persas
+    respuesta3: Griegos
     indiceRespuestaCorrecta: 0

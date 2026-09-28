@@ -13,13 +13,28 @@ MonoBehaviour:
   m_Name: PuntoDeAprendizaje5
   m_EditorClassIdentifier: Assembly-CSharp::SimEdVR.Scripts.Core.SimEd_PreguntaSO
   idPunto: E
-  tema: Preguntas historia 1
-  descripcion: awdasda
+  tema: Hitos y Civilizaciones del Mundo Antiguo
+  descripcion: "Esta sala sintetiza momentos determinantes en la evoluci\xF3n de
+    las sociedades humanas"
   imagen: {fileID: 0}
   preguntas:
-  - textoTeorico: sada
-    enunciadoPregunta: asd
-    respuesta1: ads
-    respuesta2: asd
-    respuesta3: sda
+  - textoTeorico: "En la antig\xFCedad, el pueblo del Antiguo Egipto construy\xF3
+      grandes obras arquitect\xF3nicas a orillas del r\xEDo Nilo. Para albergar las
+      tumbas de sus reyes y faraones, levantaron gigantescos monumentos de piedra
+      de base cuadrada y caras triangulares conocidos mundialmente como pir\xE1mides."
+    enunciadoPregunta: "\xBFC\xF3mo se llaman los monumentos triangulares de piedra
+      donde se enterraba a los faraones en Egipto?"
+    respuesta1: Murallas
+    respuesta2: "Pir\xE1mides"
+    respuesta3: Castillos
     indiceRespuestaCorrecta: 0
+  - textoTeorico: "Durante los siglos XV y XVI, en las alturas de la cordillera de
+      los Andes floreci\xF3 una civilizaci\xF3n sudamericana muy organizada. Sus
+      h\xE1biles ingenieros tallaron bloques de roca para levantar caminos empedrados
+      y la famosa ciudadela sagrada de Machu Picchu: el pueblo de los incas."
+    enunciadoPregunta: "\xBFQu\xE9 civilizaci\xF3n andina construy\xF3 la ciudadela
+      de piedra de Machu Picchu?"
+    respuesta1: Aztecas
+    respuesta2: Incas
+    respuesta3: Mayas
+    indiceRespuestaCorrecta: 1
